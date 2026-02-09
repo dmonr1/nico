@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+    font-family: Georgia, serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f8cdda, #fbc2eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* SOBRE */
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    cursor: pointer;
+}
+
+/* Parte frontal */
+.front {
+    position: absolute;
+    inset: 0;
+    background: #f3e5d8;
+    border: 2px solid #d2b48c;
+    border-radius: 4px;
+    z-index: 3;
+}
+
+/* Solapa triangular */
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 110px solid #e8d3b5;
+    transform-origin: top;
+    transition: transform 0.7s ease;
+    z-index: 4;
+}
+
+/* CARTA */
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 170px;
+    background: #fffdf8;
+    padding: 18px;
+    border: 1px solid #d6c4a3;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    transition: transform 0.7s ease;
+    z-index: 2;
+}
+
+.letter h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.letter p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* ESTADO ABIERTO */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .letter {
+    transform: translate(-50%, -120%);
+}
+
+.flap-2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-bottom: 110px solid rgb(235, 221, 203);
+}
+
+.letter {
+    z-index: 1;
+}
+
+.flap-2 {
+    z-index: 3;
+}
+
+.front {
+    z-index: 2;
+}
+
+.flap {
+    z-index: 4;
+}
+
