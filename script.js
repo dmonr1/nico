@@ -1,4 +1,23 @@
 window.onload = () => {
+    // BOTÓN SALTAR
+    const skipBtn = document.getElementById("skip-button");
+    skipBtn.addEventListener("click", () => {
+        // Ocultar heartbeat y video
+        heartbeatIntro.style.display = "none";
+        videoLayer.style.display = "none";
+
+        // Detener audios
+        stopAllYearAudios();
+        heartbeat.pause();
+        flatline.pause();
+        tapeDistortion.pause();
+        tapeReproducer.pause();
+        breathing.pause();
+
+        // Mostrar chat directo
+        startValentineChat();
+    });
+
 
     /* =========================
        ELEMENTOS
@@ -23,7 +42,7 @@ window.onload = () => {
     let fadeInterval = null;
     const FADE_DURATION = 800; // ms (puedes cambiarlo)
     const VIDEO_DURATION = 8000;      // duración real del video
-    const AUDIO_FADE_OUT_AT = 7600;  
+    const AUDIO_FADE_OUT_AT = 7600;
 
     /* =========================
        SONIDOS
@@ -50,7 +69,7 @@ window.onload = () => {
         a2025: 0.18,
         a2026: 0.22
     };
-    
+
 
     const yearAudios = [
         new Audio("coro.mp3"),
@@ -58,12 +77,12 @@ window.onload = () => {
         new Audio("audio2025.mp3"),
         new Audio("audio2026.mp3")
     ];
-    
+
     yearAudios[0].maxVolume = AUDIO_LEVELS.coro;
     yearAudios[1].maxVolume = AUDIO_LEVELS.a2024;
     yearAudios[2].maxVolume = AUDIO_LEVELS.a2025;
     yearAudios[3].maxVolume = AUDIO_LEVELS.a2026;
-    
+
 
     /* =========================
        IMÁGENES HEARTBEAT
@@ -267,18 +286,18 @@ window.onload = () => {
 
             bars.style.transition = "opacity 0.8s ease-in-out";
             bars.style.opacity = "0";
-        
+
             /* 🔇 apagar distorsión junto con las barras */
             fadeOutAudio(tapeDistortion, 800);
-        
+
             setTimeout(() => {
                 tapeDistortion.pause();
                 tapeDistortion.currentTime = 0;
-        
+
                 bars.style.display = "none";
                 playTransition(playMainVideo);
             }, 800);
-        
+
         }, 5300);
     }
 
@@ -302,16 +321,16 @@ window.onload = () => {
 
     function fadeInAudio(audio, duration = FADE_DURATION) {
         clearInterval(fadeInterval);
-    
+
         const targetVolume = audio.maxVolume ?? 1;
-    
+
         audio.volume = 0;
-        audio.play().catch(() => {});
-    
+        audio.play().catch(() => { });
+
         const steps = 20;
         const stepTime = duration / steps;
         const volumeStep = targetVolume / steps;
-    
+
         fadeInterval = setInterval(() => {
             if (audio.volume < targetVolume) {
                 audio.volume = Math.min(targetVolume, audio.volume + volumeStep);
@@ -320,18 +339,18 @@ window.onload = () => {
             }
         }, stepTime);
     }
-    
+
 
     function fadeOutAudio(audio, duration = FADE_DURATION) {
         if (!audio || audio.paused) return;
-    
+
         clearInterval(fadeInterval);
-    
+
         const startVolume = audio.volume;
         const steps = 20;
         const stepTime = duration / steps;
         const volumeStep = startVolume / steps;
-    
+
         fadeInterval = setInterval(() => {
             if (audio.volume > 0) {
                 audio.volume = Math.max(0, audio.volume - volumeStep);
@@ -342,7 +361,7 @@ window.onload = () => {
             }
         }, stepTime);
     }
-    
+
 
 
 
@@ -364,50 +383,50 @@ window.onload = () => {
 
     function playMainVideo() {
         if (index >= videos.length) return;
-    
+
         const { src, text } = videos[index];
         videoLayer.style.display = "block";
-    
+
         // 🔊 AUDIO DEL AÑO
         playYearAudio(index);
-    
+
         playVideo(src, text, true, VIDEO_DURATION, () => {
-    
+
             stopAllYearAudios();
-    
+
             index++;
-    
+
             // 🔥 SI YA TERMINÓ 2026
             if (index >= videos.length) {
-    
+
                 // 🎬 Transición extra
                 playTransition(() => {
-    
+
                     // 📺 Video final apagado
                     playVideo(shutdownVideo, null, false, 3000, () => {
                         videoLayer.style.transition = "transform 0.6s ease, opacity 0.6s ease";
                         videoLayer.style.transform = "scaleY(0.02)";
                         videoLayer.style.opacity = "0";
-                    
+
                         setTimeout(() => {
                             startValentineChat();
                         }, 1200);
                     });
-    
+
                 });
-    
+
             } else {
                 playTransition(playMainVideo);
             }
         });
-    
+
         // ⏳ Fade out del audio antes de terminar
         setTimeout(() => {
             stopAllYearAudios();
         }, AUDIO_FADE_OUT_AT);
     }
-    
-    
+
+
     video.onpause = () => {
         stopAllYearAudios();
     };
@@ -416,9 +435,9 @@ window.onload = () => {
         clearTimeout(showTimeout);
         clearTimeout(hideTimeout);
         clearTimeout(videoTimeout);
-    
+
         ocultarTexto();
-    
+
         /* =========================
            🎬 MODO DE PANTALLA
            SOLO APAGADO = FULLSCREEN
@@ -428,38 +447,38 @@ window.onload = () => {
             videoLayer.classList.add("fullscreen");
             video.muted = false;
             video.volume = 1;
-        
+
         } else {
             // 🎬 AÑOS → modo cine + sin audio del video
             videoLayer.classList.remove("fullscreen");
             video.muted = true;
         }
-    
+
         video.pause();
         video.src = src;
         video.load();
-    
+
         video.onloadeddata = () => {
             video.currentTime = 0;
-            video.play().catch(() => {});
-    
+            video.play().catch(() => { });
+
             if (mostrarTexto && texto) {
                 showTimeout = setTimeout(() => {
                     mostrarTextoFinal(texto);
                 }, 500);
-    
+
                 hideTimeout = setTimeout(() => {
                     ocultarTexto();
                 }, durationMs - 500);
             }
-    
+
             videoTimeout = setTimeout(() => {
                 video.pause();
                 if (onFinish) onFinish();
             }, durationMs);
         };
     }
-    
+
 
     /* =========================
        TEXTO FINAL
@@ -473,49 +492,62 @@ window.onload = () => {
         final.style.opacity = "0";
     }
 };
-
-
 function startValentineChat() {
 
     const section = document.getElementById("valentine-section");
-    const typingIndicator = document.getElementById("typing-indicator");
+    if (!section) return;
+
+    document.body.classList.add("mac-screen-active");
 
     const messages = [
-        { id: "msg1", text: "Después de que todo se apagó…" },
-        { id: "msg2", text: "me di cuenta de algo." },
-        { id: "msg3", text: "No quiero que esto se quede en recuerdos." },
-        { id: "msg4", text: "Quiero seguir escribiendo contigo." },
-        { id: "msg5", text: "¿Quieres ser mi San Valentín?" }
+        { id: "msg1", text: "Desde que te conocí, muchas cosas cambiaron." },
+        { id: "msg2", text: "No fue algo exagerado, fue en lo cotidiano." },
+        { id: "msg3", text: "Este sería ya nuestro tercer San Valentín juntos." },
+        { id: "msg4", text: "Y me doy cuenta de lo importantes que se volvieron esos momentos." },
+        { id: "msg5", text: "Pequeños detalles… pero significan mucho para mí." }
     ];
 
     section.style.display = "flex";
 
-    let delay = 1000;
+    const reply = document.getElementById("reply");
+    reply.textContent = "";
+
+    // limpiar mensajes
+    messages.forEach(msg => {
+        const el = document.getElementById(msg.id);
+        el.textContent = "";
+        el.parentElement.style.display = "none";
+    });
+
+    reply.parentElement.style.display = "none";
 
     function typeMessage(elementId, text, callback) {
+
         const el = document.getElementById(elementId);
+        if (!el) return;
+
         const container = el.parentElement;
+        container.style.display = "block";
 
-        container.classList.add("show");
-        el.classList.add("typing-cursor");
+        // Mostrar "escribiendo..." dentro del mensaje
+        el.innerHTML = `
+            <span class="writing-text">
+                escribiendo<span class="dots">...</span>
+            </span>
+        `;
 
-        let i = 0;
-
-        const typing = setInterval(() => {
-            el.textContent += text[i];
-            i++;
-
-            if (i >= text.length) {
-                clearInterval(typing);
-                el.classList.remove("typing-cursor");
-                if (callback) setTimeout(callback, 600);
-            }
-        }, 35);
+        // Tiempo de "escribiendo..."
+        setTimeout(() => {
+            el.textContent = text;
+            waMessages.scrollTop = waMessages.scrollHeight;
+            if (callback) setTimeout(callback, 700);
+        }, 1200);
     }
+
 
     function showNextMessage(index) {
         if (index >= messages.length) {
-            showTypingReply();
+            showReply();
             return;
         }
 
@@ -524,36 +556,91 @@ function startValentineChat() {
         });
     }
 
-    function showTypingReply() {
+    function showReply() {
+        const input = document.getElementById("chatInput");
+        input.focus();
+        input.value = "";
 
-        typingIndicator.style.opacity = "1";
+        let text = "Claro que sí.";
+        let i = 0;
 
-        setTimeout(() => {
-            typingIndicator.style.opacity = "0";
+        const typing = setInterval(() => {
+            input.value += text.charAt(i);
+            i++;
 
-            const reply = document.getElementById("reply");
-            const replyContainer = reply.parentElement;
+            if (i >= text.length) {
+                clearInterval(typing);
+                
 
-            replyContainer.classList.add("show");
-            reply.classList.add("typing-cursor");
+            }
 
-            let text = "Claro que sí";
-            let i = 0;
-
-            const typing = setInterval(() => {
-                reply.textContent += text[i];
-                i++;
-
-                if (i >= text.length) {
-                    clearInterval(typing);
-                    reply.classList.remove("typing-cursor");
+            // ⬇️ AQUÍ VA EL CAMBIO DE CHECK A AZUL
+            setTimeout(() => {
+                const check = replyContainer.querySelector("i");
+                if (check) {
+                    check.classList.add("read");
                 }
-            }, 40);
-
-        }, 2000);
+            }, 2000);
+        }, 40);
     }
+
 
     setTimeout(() => {
         showNextMessage(0);
-    }, delay);
+    }, 800);
 }
+
+function scrollToBottom() {
+    const anchor = document.getElementById("chat-anchor");
+    if (anchor) {
+        anchor.scrollIntoView({ behavior: "instant" });
+    }
+}
+
+
+const input = document.getElementById("chatInput");
+const messagesBox = document.getElementById("waMessages");
+
+input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+
+        const text = input.value.trim();
+        if (!text) return;
+
+        const time = new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+        const msg = document.createElement("div");
+        msg.className = "message sent";
+        msg.innerHTML = `
+            <p>${text}</p>
+            <span class="msg-meta">
+                <span class="msg-time">${time}</span>
+                <i class="fa-solid fa-check"></i>
+            </span>
+        `;
+
+        messagesBox.appendChild(msg);
+        input.value = "";
+
+        // scroll abajo
+        requestAnimationFrame(() => {
+            messagesBox.scrollTop = messagesBox.scrollHeight;
+        });
+
+        // ✔ segundo check (entregado)
+        setTimeout(() => {
+            const icon = msg.querySelector("i");
+            icon.className = "fa-solid fa-check-double";
+        }, 500);
+
+        // ✔✔ azul (leído)
+        setTimeout(() => {
+            const icon = msg.querySelector("i");
+            icon.classList.add("read");
+        }, 1000);
+    }
+});
