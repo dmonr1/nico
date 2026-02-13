@@ -46,26 +46,68 @@
         </div>
     </div>
 
+    <div id="mac-login">
+
+        <div class="login-bg"></div>
+
+        <div class="login-blur" id="loginBlur"></div>
+
+        <div class="login-container" id="loginUI">
+
+            <div style="transform: translateY(-70px);">
+                <img src="img2.jpeg" class="login-avatar">
+                <h2 class="login-name">Nico</h2>
+
+                <div class="login-input">
+                    <input type="password" id="loginPassword" placeholder="Contraseña">
+                    <i class="fa-solid fa-arrow-right" id="loginArrow"></i>
+                </div>
+            </div>
+
+            <div class="login-actions">
+                <div class="login-action">
+                    <i class="fa-solid fa-user" style="font-weight: 500;"></i>
+                    <span>Cambiar <br> Usuario</span>
+                </div>
+                <div class="login-action">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Reiniciar</span>
+                </div>
+                <div class="login-action">
+                    <i class="fa-solid fa-power-off"></i>
+                    <span>Apagar</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div id="valentine-section">
         <div class="macos-desktop">
 
-            <!-- TOP BAR MAC -->
             <div class="macos-topbar">
-                <span>Mensajes</span>
+                <div class="topbar-left">
+                    <img src="mac-os.png" class="wa-mac">
+                    <span>Mensajes</span>
+                    <span>Finder</span>
+                    <span>File</span>
+                    <span>Edit</span>
+                    <span>View</span>
+                    <span>Go</span>
+                    <span>Window</span>
+                    <span>Help</span>
+                </div>
+
                 <span class="time">22:14</span>
             </div>
 
-            <!-- VENTANA -->
             <div class="mac-window">
                 <div class="wa-container">
 
-                    <!-- SIDEBAR -->
                     <div class="wa-sidebar">
 
-                        <!-- COLUMNA ICONOS -->
                         <div class="wa-side-icons">
 
-                            <!-- SEMÁFORO MAC -->
                             <div class="wa-side-top mac-dots">
                                 <span class="dot red"></span>
                                 <span class="dot yellow"></span>
@@ -110,10 +152,8 @@
 
                         </div>
 
-                        <!-- CONTENIDO SIDEBAR -->
                         <div class="wa-side-content">
 
-                            <!-- HEADER SUPERIOR -->
                             <div class="wa-side-header">
                                 <h3>Chats</h3>
                                 <div class="wa-header-icons">
@@ -130,54 +170,49 @@
                                 </div>
                             </div>
 
-
-                            <!-- CHAT LIST -->
                             <div class="wa-chat-list">
 
                                 <div class="wa-chat-item active">
-                                    <img src="img2.jpeg" class="chat-avatar">
+                                    <img src="diego.jpeg" class="chat-avatar">
                                     <div class="chat-info">
                                         <div class="chat-top">
-                                            <span class="chat-name">San Valentín 💌</span>
+                                            <span class="chat-name">Diego</span>
                                             <span class="chat-time">22:14</span>
                                         </div>
                                         <div class="chat-bottom">
-                                            <span class="chat-message">Desde que te conocí, muchas cosas
-                                                cambiaron…</span>
-                                            <span class="chat-badge">3</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="wa-chat-item">
-                                    <img src="img3.jpeg" class="chat-avatar">
-                                    <div class="chat-info">
-                                        <div class="chat-top">
-                                            <span class="chat-name">Amigos</span>
-                                            <span class="chat-time">18:42</span>
-                                        </div>
-                                        <div class="chat-bottom">
-                                            <span class="chat-message">Nos vemos mañana entonces</span>
+                                            <span class="chat-message">Han pasado casi cuatro años desde que
+                                                empezamos…</span>
                                             <span class="chat-badge">1</span>
                                         </div>
                                     </div>
                                 </div>
 
-
+                                <div class="wa-chat-item">
+                                    <img src="img10.jpeg" class="chat-avatar">
+                                    <div class="chat-info">
+                                        <div class="chat-top">
+                                            <span class="chat-name">Beba</span>
+                                            <span class="chat-time">18:42</span>
+                                        </div>
+                                        <div class="chat-bottom">
+                                            <span class="chat-message">Guau guau</span>
+                                            <span class="chat-badge">2</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
                     </div>
 
-                    <!-- CHAT PRINCIPAL -->
                     <div class="wa-chat">
                         <div class="wa-chat-header">
 
                             <div class="wa-chat-header-left">
-                                <img src="img2.jpeg" class="chat-header-avatar">
+                                <img src="diego.jpeg" class="chat-header-avatar">
 
                                 <div class="chat-header-info">
-                                    <div class="chat-header-name">San Valentín</div>
+                                    <div class="chat-header-name">Diego</div>
                                     <div class="chat-header-status online">
                                         <span class="status-dot"></span>
                                         <span>En línea</span>
@@ -226,13 +261,19 @@
                             <div class="message received">
                                 <p id="msg4"></p>
                                 <span class="msg-meta">
-                                    <span class="msg-time">22:14</span>
+                                    <span class="msg-time">22:15</span>
                                 </span>
                             </div>
                             <div class="message received highlight">
                                 <p id="msg5"></p>
                                 <span class="msg-meta">
-                                    <span class="msg-time">22:14</span>
+                                    <span class="msg-time">22:15</span>
+                                </span>
+                            </div>
+                            <div class="message received highlight">
+                                <p id="msg6"></p>
+                                <span class="msg-meta">
+                                    <span class="msg-time">22:15</span>
                                 </span>
                             </div>
                             <div class="message sent">
@@ -267,18 +308,28 @@
                 </div>
             </div>
 
-            <!-- DOCK -->
             <div class="macos-dock">
-                <img src="finder.png" class="dock-icon">
-                <img src="wsp.png" class="dock-icon active">
-                <img src="safari.png" class="dock-icon">
-                <img src="iOS-settings-app.png" class="dock-icon">
+                <div class="dock-item active">
+                    <img src="apps/finder.png" class="dock-icon">
+                </div>
+                <img src="apps/chrome.png" class="dock-icon">
+                <div class="dock-item active">
+                    <img src="apps/wsp.png" class="dock-icon">
+                </div>
+                <div class="dock-item active">
+                    <img src="apps/safari.png" class="dock-icon">
+                </div>
+                <img src="apps/settings.png" class="dock-icon">
+                <img src="apps/calculadora.png" class="dock-icon">
+                <img src="apps/iMessage.png" class="dock-icon">
+                <img src="apps/mail.png" class="dock-icon">
+                <img src="apps/calendario.png" class="dock-icon">
+                <img src="apps/appstore.png" class="dock-icon">
+                <img src="apps/trash.png" class="dock-icon">
             </div>
 
         </div>
     </div>
-
-
 
 
     <div id="final">
@@ -287,10 +338,30 @@
         </h1>
     </div>
 
+
+
     <script src="script.js"></script>
-    <!-- BOTÓN FLOTA -->
-    <button id="skip-button">Saltar</button>
+
+    <section id="cinemaFinal" class="cinema-final">
+        <div class="letterbox top"></div>
+
+        <div class="cinema-final-content">
+            <img id="cinemaFinalImage">
+        </div>
+
+        <div id="lyrics"></div>
+        <div id="lyricsSub"></div>
+
+
+        <div class="letterbox bottom"></div>
+    </section>
+
+    <audio id="finalMusic" src="musica-final.mp3" preload="auto"></audio>
+
+
 
 </body>
+
+
 
 </html>

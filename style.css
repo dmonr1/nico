@@ -31,7 +31,6 @@
     top: 20px;
     right: 20px;
     z-index: 1000;
-    /* encima de todo */
     padding: 12px 20px;
     background: rgba(255, 255, 255, 0.85);
     color: #111;
@@ -62,7 +61,6 @@ body {
     font-family: "Inter", system-ui, sans-serif;
 }
 
-/* CAPAS */
 #glass-tv,
 #crt-circle,
 #bars,
@@ -72,9 +70,6 @@ body {
     inset: 0;
 }
 
-/* =========================
-     1️⃣ VIDRIO TV
-  ========================= */
 #glass-tv {
     background:
         radial-gradient(circle at center, #ffffff22, #000000ee),
@@ -83,18 +78,13 @@ body {
     z-index: 5;
 }
 
-/* =========================
-     2️⃣ ENCENDIDO CRT
-  ========================= */
 #crt-circle {
     background: black;
     clip-path: circle(0% at 50% 50%);
     z-index: 6;
 }
 
-/* =========================
-     3️⃣ BARRAS TV
-  ========================= */
+
 #bars {
     background: linear-gradient(to right,
             #fff 0%, #fff 14.2%,
@@ -109,30 +99,24 @@ body {
     animation: softFlicker 3s ease-in-out infinite;
 }
 
-/* =========================
-     4️⃣ VIDEO + MARCO CINE
-  ========================= */
 #video-layer {
     display: none;
     z-index: 8;
     background: black;
 }
 
-/* MARCO CINE (letterbox real) */
 .cinema-frame {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 100vw;
     height: 42.5vw;
-    /* relación cine */
     max-height: 72.5vh;
     transform: translate(-50%, -50%);
     background: black;
     overflow: hidden;
 }
 
-/* VIDEO */
 #bg-video {
     width: 100%;
     height: 100%;
@@ -141,9 +125,6 @@ body {
     animation: videoFlicker 4s ease-in-out infinite;
 }
 
-/* =========================
-     EFECTO RESOLUCIÓN CRT
-  ========================= */
 .scanlines {
     position: absolute;
     inset: 0;
@@ -159,12 +140,6 @@ body {
     opacity: 0.45;
 }
 
-/* =========================
-     5️⃣ TEXTO FINAL
-  ========================= */
-/* =========================
-   5️⃣ TEXTO FINAL (LIMPIO)
-========================= */
 #final {
     position: fixed;
     inset: 0;
@@ -197,9 +172,6 @@ body {
     filter: blur(0);
 }
 
-/* =========================
-     ANIMACIONES
-  ========================= */
 @keyframes softFlicker {
 
     0%,
@@ -247,9 +219,6 @@ body {
 }
 
 
-/* =========================
-   ❤️ HEARTBEAT INTRO
-========================= */
 #heartbeat-intro {
     position: fixed;
     inset: 0;
@@ -282,14 +251,12 @@ body {
         filter 0.3s ease;
 }
 
-/* Estado latido */
 .heartbeat-images img.beat {
     opacity: 0.85;
     transform: scale(1.02);
     filter: brightness(0.9) contrast(1) saturate(1) blur(0.5px);
 }
 
-/* Desvanecer rápido */
 .heartbeat-images img.fade {
     opacity: 0;
     transform: scale(0.98);
@@ -299,9 +266,6 @@ body {
         transform 0.18s ease-out,
         filter 0.18s ease-out;
 }
-
-
-
 
 .heartbeat-text {
     position: relative;
@@ -314,7 +278,6 @@ body {
     opacity: 0;
     transition: opacity 0.8s ease;
 }
-
 
 .heartbeat-line-wrapper {
     position: absolute;
@@ -356,7 +319,6 @@ body {
     transition: clip-path 2.2s cubic-bezier(.4, 0, .2, 1);
 }
 
-/* pulso de luz al encender */
 #crt-circle.revive {
     animation: reviveGlow 1.6s ease-out forwards;
 }
@@ -376,8 +338,6 @@ body {
             rgba(255, 255, 255, 0.02) 65%,
             transparent 85%);
 }
-
-
 
 #revive-light.active {
     animation: reviveFlash 2.6s cubic-bezier(.25, .7, .2, 1) forwards;
@@ -402,18 +362,10 @@ body {
     }
 }
 
-
-
-
-/* =========================
-   FLATLINE EFFECT
-========================= */
-
 #heartbeat-intro.flatline-active {
     animation: monitorPulse 1s linear infinite;
 }
 
-/* efecto leve vibración / interferencia */
 @keyframes monitorPulse {
     0% {
         filter: brightness(0.6);
@@ -439,30 +391,29 @@ body {
     object-fit: cover;
 }
 
-/* =========================
-   BASE
-========================= */
-
 #valentine-section {
     position: fixed;
     inset: 0;
-    display: none;
-    z-index: 30;
+    z-index: 9999;
     font-family: 'Inter', sans-serif;
+    background: url("mac.jpg") center/cover no-repeat;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
 }
 
+#valentine-section.active {
+    opacity: 1;
+    pointer-events: auto;
+}
 .macos-desktop {
     width: 100vw;
     height: 100vh;
-    background: url("mac.jpg") center/cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-/* =========================
-   MAC TOPBAR
-========================= */
 
 .macos-topbar {
     position: fixed;
@@ -479,9 +430,15 @@ body {
     font-size: 13px;
 }
 
-/* =========================
-   WINDOW
-========================= */
+.topbar-left{
+    display: flex;
+    gap: 18.5px;
+}
+
+.wa-mac{
+    height: 17px;
+
+}
 
 .mac-window {
     width: 1020px;
@@ -491,6 +448,19 @@ body {
     overflow: hidden;
     display: flex;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    transform: translateY(-30px); 
+}
+
+.mac-window {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease,
+                transform 0.5s ease;
+}
+
+#valentine-section.active .mac-window {
+    opacity: 1;
+    transform: translateY(-30px);
 }
 
 .wa-container {
@@ -498,19 +468,34 @@ body {
     width: 100%;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
 .wa-sidebar {
     width: 400px;
     display: flex;
     background: #f0f2f5;
 }
 
-/* =========================
-   LEFT ICON COLUMN
-========================= */
+.wa-sidebar,
+.wa-chat {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+#valentine-section.active .wa-sidebar {
+    animation: panelIn 0.45s ease forwards;
+    animation-delay: 0.15s;
+}
+
+#valentine-section.active .wa-chat {
+    animation: panelIn 0.45s ease forwards;
+    animation-delay: 0.25s;
+}
+
+@keyframes panelIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .wa-side-icons {
     width: 85px;
@@ -519,10 +504,8 @@ body {
     flex-direction: column;
     padding: 14px 0;
     position: relative;
-    /* clave para avatar abajo */
 }
 
-/* SEMÁFORO MAC */
 .wa-side-top.mac-dots {
     margin-top: 10px;
     display: flex;
@@ -548,10 +531,6 @@ body {
 .dot.green {
     background: #28c840;
 }
-
-/* =========================
-   ICONOS CENTRALES
-========================= */
 
 .wa-side-center {
     display: flex;
@@ -581,20 +560,14 @@ body {
     transition: background 0.18s ease, color 0.18s ease;
 }
 
-/* HOVER */
 .side-item i:hover {
     background: #f1f3f5;
 }
 
-/* ACTIVO */
 .side-item.active i {
     background: #90909040;
     color: #707070;
 }
-
-/* =========================
-   BOTTOM (AYUDA + AVATAR)
-========================= */
 
 .wa-side-bottom {
     position: absolute;
@@ -607,7 +580,6 @@ body {
     gap: 14px;
 }
 
-/* AYUDA */
 .side-help {
     width: 40px;
     height: 40px;
@@ -629,7 +601,6 @@ body {
     color: #0a7cff;
 }
 
-/* AVATAR */
 .wa-avatar {
     width: 38px;
     height: 38px;
@@ -638,19 +609,12 @@ body {
     cursor: pointer;
 }
 
-/* =========================
-   RIGHT SIDEBAR CONTENT
-========================= */
-
 .wa-side-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     background: #ffffff;
 }
-
-
-/* HEADER */
 
 .wa-side-header {
     height: 52px;
@@ -675,7 +639,6 @@ body {
     color: #54656f;
 }
 
-/* HEADER GENERAL */
 .wa-chat-header {
     height: 67.5px;
     background: #f0f2f5;
@@ -685,7 +648,6 @@ body {
     align-items: center;
 }
 
-/* LADO IZQUIERDO */
 .wa-chat-header-left {
     display: flex;
     align-items: center;
@@ -720,7 +682,6 @@ body {
     font-weight: 500;
 }
 
-/* Puntito verde */
 .status-dot {
     width: 8px;
     height: 8px;
@@ -728,12 +689,10 @@ body {
     border-radius: 50%;
 }
 
-/* Cuando está online el texto no cambia de color */
 .chat-header-status.online {
     color: #667781;
 }
 
-/* LADO DERECHO */
 .wa-chat-header-right {
     display: flex;
     align-items: center;
@@ -749,16 +708,12 @@ body {
     color: #d1d7db;
 }
 
-/* SEARCH */
-
-/* CONTENEDOR BLANCO */
 .wa-search {
     background: #ffffff;
     padding: 5px 15px 10px 15px;
     border-bottom: 1px solid #e9edef;
 }
 
-/* CAJA INTERNA GRIS */
 .wa-search-box {
     background: #f0f2f5;
     border-radius: 12px;
@@ -770,13 +725,11 @@ body {
     font-size: 16px;
 }
 
-/* ICONO */
 .wa-search-box i {
     font-size: 14px;
     color: #8a8d91;
 }
 
-/* INPUT */
 .wa-search-box input {
     border: none;
     outline: none;
@@ -785,8 +738,6 @@ body {
     width: 100%;
     color: #111b21;
 }
-
-/* CHAT LIST */
 
 .wa-chat-list {
     flex: 1;
@@ -864,9 +815,6 @@ body {
     justify-content: center;
 }
 
-/* =========================
-   CHAT PANEL
-========================= */
 .chat-spacer {
     flex: 1;
 }
@@ -892,7 +840,6 @@ body {
     flex-direction: column;
     gap: 10px;
 
-    /* scroll invisible */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -904,7 +851,6 @@ body {
 .message {
     max-width: 65%;
     padding: 12px 16px 20px 16px;
-    /* espacio real abajo */
     border-radius: 14px;
     font-size: 14px;
     position: relative;
@@ -919,13 +865,11 @@ body {
 .message p {
     margin: 0;
     display: inline;
-
 }
 
 .message {
     position: relative;
     padding-bottom: 12px;
-    /* espacio para hora */
 }
 
 .msg-time {
@@ -1023,9 +967,6 @@ body {
     height: 1px;
 }
 
-/* INPUT */
-
-/* CONTENEDOR GENERAL */
 .wa-input {
     display: flex;
     align-items: center;
@@ -1034,7 +975,6 @@ body {
     background: #F7F7FC;
 }
 
-/* ICONOS IZQUIERDA */
 .wa-input-left,
 .wa-input-right {
     display: flex;
@@ -1045,7 +985,6 @@ body {
     cursor: pointer;
 }
 
-/* CAJA BLANCA */
 .wa-input-box {
     flex: 1;
     background: #ffffff;
@@ -1056,7 +995,6 @@ body {
     align-items: center;
 }
 
-/* INPUT */
 .wa-input-box input {
     border: none;
     outline: none;
@@ -1065,23 +1003,28 @@ body {
     background: transparent;
 }
 
-
-/* =========================
-   DOCK
-========================= */
-
 .macos-dock {
     position: fixed;
     bottom: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 20px);
     display: flex;
     gap: 10px;
-    padding: 8px 14px;
+    padding: 12px 14px;
     border-radius: 20px;
     backdrop-filter: blur(18px);
     background: rgba(255, 255, 255, 0.65);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+
+    opacity: 0;
+    transition: 
+        transform 0.6s ease,
+        opacity 0.6s ease;
+}
+
+#valentine-section.active .macos-dock {
+    transform: translate(-50%, 0);
+    opacity: 1;
 }
 
 .dock-icon {
@@ -1093,17 +1036,326 @@ body {
 }
 
 .dock-icon:hover {
-    transform: scale(1.2);
+    transform: translateY(-2px);
 }
 
-.dock-icon.active::after {
+.dock-item {
+    position: relative;
+}
+
+.dock-item.active::after {
     content: '';
     position: absolute;
     bottom: -6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 8px;
+    width: 4px;
     height: 4px;
-    background: #0a7cff;
-    border-radius: 3px;
+    background: #4c4c4c;
+    border-radius: 50%;
+    opacity: 1;
+}
+
+.dock-icon.active {
+    animation: dockBounce 0.4s ease;
+}
+
+@keyframes dockBounce {
+    0% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+    60% { transform: translateY(2px); }
+    100% { transform: translateY(0); }
+}
+
+#mac-login {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+
+    display: block;
+    pointer-events: none;
+
+    opacity: 0;
+    transform: scale(1.03);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+#mac-login.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+#mac-login.active {
+    display: block;
+    opacity: 1;
+}
+
+.login-bg {
+    position: absolute;
+    inset: 0;
+    background: url("mac.jpg") center/cover no-repeat;
+}
+
+.login-blur {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    background: rgba(0, 0, 0, 0.25);
+    transition: backdrop-filter 0.7s ease,
+                -webkit-backdrop-filter 0.7s ease;
+}
+
+.login-blur.unblur {
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+}
+
+.login-container {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.login-container.fade {
+    opacity: 0;
+}
+
+.login-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12.5px;
+    box-shadow: 0px 3px 20px rgb(12 12 12 / 32%);
+}
+
+.login-name {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.login-input {
+    position: relative;
+    width: 280px;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border-radius: 12px;
+    padding: 0; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.089);
+}
+
+.login-input input {
+    width: 100%;
+    padding: 12px 44px 12px 16px; 
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 12px;
+    caret-color: #fff;
+}
+
+.login-input input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.login-input i#loginArrow {
+    position: absolute;
+    right: 8px; 
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: rgba(255,255,255,0.8);
+    font-size: 18px;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.login-input i#loginArrow:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.login-actions {
+    position: absolute;
+    bottom: 120px;
+    display: flex;
+    gap: 70px;
+}
+
+.login-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: 0.2s;
+    color: rgba(255, 255, 255, 0.747);
+}
+
+.login-action i {
+    font-size: 32.5px;
+    margin-bottom: 12px;
+}
+
+.login-action:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.writing-text {
+    color: #9aa0a6; 
+    font-size: 13px;
+    font-style: italic;
+}
+
+.writing-text .dots {
+    animation: blinkDots 1s infinite;
+}
+
+@keyframes blinkDots {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+.video-preview {
+    position: relative;
+    margin-top: 8px;
+    border-radius: 14px;
+    overflow: hidden;
+    max-width: 240px;
+    cursor: pointer;
+}
+
+.video-thumb {
+    width: 100%;
+    display: block;
+    border-radius: 14px;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 55px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-button i {
+    color: white;
+    font-size: 20px;
+    margin-left: 3px;
+}
+
+
+.cinema-final {
+    position: fixed;
+    inset: 0;
+    background: #1e1b1b;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50000;
+    transition: opacity .8s ease;
+  }
+  
+  .cinema-final.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .cinema-final .letterbox {
+    height: 18vh;
+    background: black;
+  }
+  
+  .cinema-final-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .cinema-final-content img {
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .cinema-final-content img.show {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  #lyrics {
+    position: absolute;
+    bottom: 10vh; 
+    width: 100%;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    text-shadow: 0 0 20px rgba(0,0,0,0.8);
+    padding: 0 40px;
+    pointer-events: none;
+    font-family: "RCLBackOne", serif;
+}
+
+#lyricsSub {
+    position: absolute;
+    bottom: 6vh;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.85);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    text-shadow: 0 0 15px rgba(0,0,0,0.8);
+    padding: 0 60px;
+    pointer-events: none;
+    font-family: "RCLBackOne", serif;
+}
+
+
+#lyrics.show,
+#lyricsSub.show {
+    opacity: 1;
 }
